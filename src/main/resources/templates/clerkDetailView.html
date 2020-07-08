@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
+<script type="text/javascript" th:src="@{/js/topBtn.js}"></script>
+<style type="text/css">
+	.borderDiv{
+		border-style: solid;
+		border-color: teal;
+		border-radius: 5%;
+		padding: 1%;
+		margin: 1%;
+	}
+	p{
+		font-weight: bold;
+	}
+</style>
+</head>
+<body>
+<div class="container">
+	<nav class="navbar navbar-light bg-light">
+	  <a class="navbar-brand">TMS Application</a>
+	  <form class="form" action="#" th:action="@{/tms/logout}">
+	    <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Logout</button>
+	  </form>
+	</nav>
+	<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+	<h1>Detailed Report</h1>
+	
+	<hr>
+	<div class="row">
+		<div class="col">
+			<p class="text-center">Offence Detail ID: <span th:text="${offDetEO.offenceDetId}"></span></p>
+		</div>
+		<div class="col justify-content-between">
+			<p class="text-center" th:text="${offDetEO.time}"/>
+			<p class="text-center" th:text="${offDetEO.place}" />
+		</div>
+	</div>
+	<hr>
+	
+	<div class="borderDiv">
+		<h3>Owner Detail</h3><hr>
+		<p>First name: <span th:text="${ownEO.fname}"></span></p>
+		<p>Last name: <span th:text="${ownEO.lname}"></span></p>
+		<p>Gender: <span th:text="${ownEO.gender}"></span></p>
+		<p>Occupation: <span th:text="${ownEO.occupation}"></span></p>
+		<p>Mobile no: <span th:text="${ownEO.mobileNo}"></span></p>
+		<p>Permanent Address: <span th:text="${ownEO.permAddr}"></span></p>
+		<p>Temporary Address: <span th:text="${ownEO.tempAddr}"></span></p>
+	</div>
+
+
+	<div class="borderDiv">
+		<h3>Vehicle Detail</h3><hr>
+		<p>Vehicle Id: <span th:text="${vehDetEO.vehId}"></span></p>
+		<p>vehicle type: <span th:text="${vehDetEO.vehType}"></span></p>
+		<p>Engine No: <span th:text="${vehDetEO.EngineNo}"></span></p>
+		<p>Model No: <span th:text="${vehDetEO.modelNo}"></span></p>
+		<p>Vehicle Name: <span th:text="${vehDetEO.vehName}"></span></p>
+		<p>vehicle Color: <span th:text="${vehDetEO.vehColor}"></span></p>
+		<p>Manufacturer Name: <span th:text="${vehDetEO.manufacturerName}"></span></p>
+		<p>Manufacturer Date: <span th:text="${vehDetEO.manufacturerDate}"></span></p>
+		<p>No of Cylinder: <span th:text="${vehDetEO.noOfCyl}"></span></p>
+		<p>Cubic Capacity: <span th:text="${vehDetEO.cubicCapacity}"></span></p>
+		<p>Fuel Used: <span th:text="${vehDetEO.fuelUsed}"></span></p>
+	</div>
+
+	<div class="borderDiv">
+		<h3>Other vehicles of this Owner</h3><hr>
+		<th:block th:each="tempVehicle: ${vehicleList}">
+			<p th:text="${tempVehicle}"></p>
+		</th:block>
+	</div>
+	
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>

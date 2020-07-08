@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
+<script type="text/javascript" th:src="@{/js/police.js}"></script>
+<script type="text/javascript" th:src="@{/js/topBtn.js}"></script>
+<style type="text/css">
+	form{
+		margin-left: 25%;
+		margin-right: 25%;
+	}
+</style>
+</head>
+<body>
+<div class="container" >
+	<nav class="navbar navbar-light bg-light">
+	  <a class="navbar-brand">TMS Application</a>
+	  <form class="form" action="#" th:action="@{/tms/logout}">
+	    <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Logout</button>
+	  </form>
+	</nav>
+	<h1> Welcome Officer <span th:text="${username}" ></span>, You're <snap th:text="${rolename}"></snap> here !</h1>
+	<p id="user" th:text="${username}" style="display:none;"></p>
+	<form action="#" th:action="@{/tms/vehicleValidation}" method="post" class="form-inline">
+		<input type="text" name="veh_no" placeholder="Vehicle number" class="form-control">
+		<input type="submit" value="Validate Number" class="form-control btn btn-primary">
+	</form>
+	<div>
+		<hr>
+		<p th:if="${regDet} != null" th:text="${regDet}"></p>
+		<th:block th:if="${ownRegDet} != null" >
+		<h3>Owner Details:</h3>
+		<table class="table table-bordered table-dark">
+			<thead>
+				<tr>
+					<th>OwnerId</th>
+					<th>First name</th>
+					<th>Last Name</th>
+					<th>Gender</th>
+					<th>Occupation</th>
+					<th>Mobile No</th>
+					<th>Date of purchase</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="tempOwnDet: ${ownRegDet}">
+					<th th:text="${tempOwnDet.ownerId}" />
+					<th th:text="${tempOwnDet.fname}" />
+					<th th:text="${tempOwnDet.lname}" />
+					<th th:text="${tempOwnDet.gender}" />
+					<th th:text="${tempOwnDet.occupation}" />
+					<th th:text="${tempOwnDet.mobileNo}" />
+					<th th:text="${tempOwnDet.date}" />
+				</tr>
+			</tbody>
+		</table>
+		</th:block>
+		<th:block th:unless="${#lists.isEmpty(fullOffDetList)}" >
+		<h3>Offence Details of vehicle:</h3>
+		<table class="table table-bordered table-dark">
+			<thead>
+				<tr>
+					<th>Vehicle No</th>
+					<th>Vehicle Type</th>
+					<th>Time</th>
+					<th>Place</th>
+					<th>Offence Type</th>
+					<th>Penalty</th>
+					<th>Status</th>
+					<th>Reported By</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="tempOffence: ${fullOffDetList}">
+					<th th:text="${tempOffence.vehNo}" />
+					<th th:text="${tempOffence.vehicleType}" />
+					<th th:text="${tempOffence.time}" />
+					<th th:text="${tempOffence.place}" />
+					<th th:text="${tempOffence.offenceType}" />
+					<th th:text="${tempOffence.penalty}" />
+					<th th:text="${tempOffence.offenceStatus}" />
+					<th th:text="${tempOffence.reportedBy}" />
+					<th>
+						<form action="#" th:action="@{/tms/update}" method="POST" class="form">
+							<input type="hidden" name="offenceDetId" th:value="${tempOffence.offenceDetId}" th:attr="value=${tempOffence.offenceId}" class="form-control">
+							<input type="submit" value="Change Status" class="form-control btn btn-primary">
+						</form>
+					</th>
+				</tr>
+			</tbody>
+		</table>
+		</th:block>
+	</div>
+	<hr>
+	<div>
+		<p th:text="${offenceAdded}"></p>
+		<form action="#" th:action="@{/tms/addOffence}" th:object="${fulloffDet}" method="post" class="form">
+			<input type="hidden" th:field="*{offenceId}" class="form-control">
+			<input type="hidden" th:field="*{offenceDetId}" class="form-control"><br>
+			<input type="text" th:field="*{vehNo}" placeholder="Vehicle number" class="form-control"><br>
+			<select id="offType" onChange="setPenalty(this)" th:field="*{penalty}" class="form-control">
+				<option th:value="0">Choose Offence Type</option>
+				<option th:value="100">General offences</option>
+				<option th:value="300">Driving vehicles without valid licence</option>
+				<option th:value="200">Driving at excessive speed</option>
+				<option th:value="500">Driving dangerously</option>
+				<option th:value="300">Racing and trials of speed without permission</option>
+				<option th:value="200">Talking on mobile phone while driving</option>
+				<option th:value="300">Driving uninsured vehicle</option>
+				<option th:value="100">Driving when mentally or physically unfit to drive</option>
+			</select><br>
+			<input id="penalty" type="number" placeholder="Penalty" class="form-control" disabled>
+			<input type="hidden" id="penaltyPerOffType" th:field="*{offenceType}" class="form-control"><br>
+			<label>Vehicle type: </label>
+			<select th:field="*{vehicleType}" class="form-control">
+				<option th:value="'Two wheeler'">Two wheeler</option>
+				<option th:value="'Four Wheeler'">Four Wheeler</option>
+				<option th:value="'Heavy vehicle'">Heavy vehicle</option>
+				<option th:value="'Bus'">Bus</option>
+			</select><br>
+			<input type="file" id="img" accept="image/jpeg, image/png" th:field="*{image}" placeholder="Image" class="form-control"><br>
+			<label>Offence Status: </label>
+			<select th:field="*{offenceStatus}" class="form-control">
+				<option th:value="'pending'">pending</option>
+				<option th:value="'paid'">paid</option>
+			</select>
+			<input id="time" type="hidden" th:field="*{time}" class="form-control"><br>
+			<input type="text" th:field="*{place}" placeholder="Place" class="form-control">
+			<input id="report" type="hidden" th:field="*{reportedBy}" th:value="${username}" th:attr="value=${username}" class="form-control"><br>
+			<input type="submit" value="Submit" class="form-control btn btn-primary">
+		</form>
+	</div>
+	
+	<div style="width:100%;height:200px;"></div>
+
+
+</div>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>
