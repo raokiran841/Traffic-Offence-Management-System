@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<title>About Me</title>
+<script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
+<style type="text/css">
+	body{
+		background-color: wheat;
+	}
+</style>
+</head>
+<body>
+<div class="container">
+	<nav class="navbar navbar-light bg-light">
+	  <a class="navbar-brand">TMS Application</a>
+	  <form class="form" action="#" th:action="@{/tms/logout}">
+	    <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Home</button>
+	  </form>
+	</nav>
+	<div class="jumbotron">
+		<h1 class="display-4">Kiran Kumar Rao&nbsp;<ion-icon name="male-outline" size="large"></ion-icon></h1>
+		<h5 class="lead">Associate Analyst @ Oracle India Pvt Ltd</h5>
+		<h5 class="lead">Kalyani Magnum, Bangalore</h5>
+		<hr class="my-4">
+		<p class="lead"><ion-icon name="logo-whatsapp"></ion-icon> +91-6363710083</p>
+		<a href="#"><ion-icon name="logo-linkedin" size="large"></ion-icon></a>
+		<a href="#"><ion-icon name="logo-github" size="large"></ion-icon></a>
+		<a href="#"><ion-icon name="logo-instagram" size="large"></ion-icon></a>
+		<a href="#"><ion-icon name="logo-facebook" size="large"></ion-icon></a>
+		<a href="#"><ion-icon name="logo-pinterest" size="large"></ion-icon></a><br>
+		<hr class="my-4">
+		<p class="lead">Skills</p>
+		<div class="row">
+			<div class="col">
+				<p><ion-icon name="send-sharp"></ion-icon> : Java</p><br>
+				<p><ion-icon name="send-sharp"></ion-icon> : Spring & Hibernate</p><br>
+			</div>
+			<div class="col">
+				<p><ion-icon name="send-sharp"></ion-icon> : Python</p><br>
+				<p><ion-icon name="send-sharp"></ion-icon> : JavaScript</p><br>
+			</div>
+			<div class="col">
+				<p><ion-icon name="send-sharp"></ion-icon> : SQL</p><br>
+				<p><ion-icon name="send-sharp"></ion-icon> : Unix Shell Scripting</p><br>
+			</div>
+			<div class="col">
+				<p><ion-icon name="send-sharp"></ion-icon> : Git</p><br>
+				<p><ion-icon name="send-sharp"></ion-icon> : HTML, CSS</p><br>
+			</div>
+		</div>
+		<hr class="my-4">
+		<p class="lead">Industry Skills:</p>
+		<div class="row">
+			<div class="col">
+				<p><ion-icon name="send-sharp"></ion-icon> : Oracle SOA Suite</p><br>
+				<p><ion-icon name="send-sharp"></ion-icon> : Weblogic Server</p><br>
+			</div>
+			<div class="col">
+				<p><ion-icon name="send-sharp"></ion-icon> : OCI</p><br>
+				<p><ion-icon name="send-sharp"></ion-icon> : Selenium</p><br>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
